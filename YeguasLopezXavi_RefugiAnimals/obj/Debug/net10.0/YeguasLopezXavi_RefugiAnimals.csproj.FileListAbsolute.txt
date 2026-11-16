@@ -142,3 +142,4 @@ E:\AccesoADatos\RiderProjects\YeguasLopezXavi_RefugiAnimals\YeguasLopezXavi_Refu
 E:\AccesoADatos\RiderProjects\YeguasLopezXavi_RefugiAnimals\YeguasLopezXavi_RefugiAnimals\obj\Debug\net10.0\YeguasLopezXavi_RefugiAnimals.pdb
 E:\AccesoADatos\RiderProjects\YeguasLopezXavi_RefugiAnimals\YeguasLopezXavi_RefugiAnimals\obj\Debug\net10.0\YeguasLopezXavi_RefugiAnimals.genruntimeconfig.cache
 E:\AccesoADatos\RiderProjects\YeguasLopezXavi_RefugiAnimals\YeguasLopezXavi_RefugiAnimals\obj\Debug\net10.0\ref\YeguasLopezXavi_RefugiAnimals.dll
+E:\AccesoADatos\RiderProjects\YeguasLopezXavi_RefugiAnimals\YeguasLopezXavi_RefugiAnimals\obj\Debug\net10.0\YeguasLopezXavi_RefugiAnimals.sourcelink.json

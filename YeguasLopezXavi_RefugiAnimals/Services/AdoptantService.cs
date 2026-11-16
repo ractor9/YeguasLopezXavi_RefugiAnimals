@@ -8,6 +8,13 @@ public class AdoptantService
     {
         _context = context;
     }
+    public List<Adoptant> GetTots()
+    {
+        List<Adoptant> llista = _context.Adoptant
+            .OrderBy(a => a.AdoptantID)
+            .ToList();
+        return llista;
+    }
     public bool Adoptar(string dni, string codiXip)
     {
         if (codiXip.Length != 15 || !codiXip.All(char.IsDigit))
@@ -87,5 +94,31 @@ public class AdoptantService
         Console.WriteLine($"{animal.Nom} retornat");
         Console.WriteLine($"{animal.Nom} retornat");
         return true;
+    }
+    
+    
+    public void LlistatAdoptants(int minAnimals)
+    {
+        // UNA sola consulta: el filtre i l'ordre els fa la BD amb el recompte de la col·lecció
+        // (EF ho tradueix a un SELECT COUNT(*) FROM Animal WHERE AdoptantID = ...).
+        // De MÉS a menys: OrderByDescending. I no .ToList() abans del Where: això portaria tots els adoptants a memòria
+        List<Adoptant> llista = _context.Adoptant
+            .Where(a => a.Animals.Count >= minAnimals)
+            .OrderByDescending(a => a.Animals.Count)
+            .ToList();
+
+        // Si vols que el recompte també surti de la mateixa consulta (sense lazy loading en el foreach):
+        //   .Select(a => new { NomComplet = a.Nom + " " + a.Cognoms, NumAnimals = a.Animals.Count })
+
+        if (llista.Count == 0)
+        {
+            Console.WriteLine($"Cap adoptant té {minAnimals} animals o més");
+            return;
+        }
+        // La funció és void: ha d'escriure ella per consola (Console, no Debug.WriteLine, que no surt a la consola)
+        foreach (Adoptant a in llista)
+        {
+            Console.WriteLine($"{a.Nom} {a.Cognoms}: {a.Animals.Count} animals");
+        }
     }
 }

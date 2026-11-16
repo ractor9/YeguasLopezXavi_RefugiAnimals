@@ -68,4 +68,63 @@ public class AnimalService
         // També val: .Where(a => EF.Functions.Like(a.Nom, $"%{text}%"))
         // (el LIKE de SQLite no distingeix majúscules). Cap dels dos funciona amb accents: À ≠ à.
     }
+
+    public bool CanviarMare(string codiXipCria, string? codiXipMare)
+    {
+        if (codiXipMare == null)
+        {
+            return false;
+        }
+        else
+        {
+            Animal cria = CercaPerXip(codiXipCria);
+            Animal mare = CercaPerXip(codiXipMare);
+            if (cria == null)
+            {
+                return false;
+            }
+            if (mare == null)
+            {
+                return false;
+            }
+            if (cria.Mare == mare)
+            {
+                return false;
+            }
+            else
+            {
+                cria.Mare = mare;
+                _context.SaveChanges();
+                return true;
+            }
+        }
+        
+    }
+
+    public bool RegistrarCria(string codiXipMare, Animal cria)
+    {
+        Animal mare = CercaPerXip(codiXipMare);
+        if (mare == null || !mare.EsFemella)
+        {
+            return false;
+        }
+
+        if (mare.Especie != cria.Especie)
+        {
+            return false;
+        }
+        else
+        {
+            if (mare.DataNaixement > cria.DataNaixement)
+            {
+                cria.Mare = mare;
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
 }
