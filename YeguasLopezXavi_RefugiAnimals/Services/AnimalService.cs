@@ -164,6 +164,7 @@ public class AnimalService
     public void CalcularDespesaMes()
     {
         Animal animalm = null;
+        decimal ra = 0;
         decimal total = 0;
         foreach (Animal a in GetTots()) 
         {
@@ -219,12 +220,13 @@ public class AnimalService
                 total += a.DespesaAcumulada;
 
                 
-                if(animalm == null || animalm.DespesaAcumulada < a.DespesaAcumulada)
+                if(animalm == null || ra < r)
                 {
+                    ra = r;
                     animalm = a;
                 }
         }
         Console.WriteLine($"Despesa total: {total}€");
-        Console.WriteLine($"Animal amb més cost: {animalm}");
+        Console.WriteLine($"Animal amb més despesa del mes: {ra} - {animalm}");
     }
 }
