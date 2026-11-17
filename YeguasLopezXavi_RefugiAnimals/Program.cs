@@ -303,3 +303,64 @@ foreach (Animal a in animalService.GetTots())
 }
 Console.WriteLine(animalService.CanviarMare("724098100000103", "724098100000101"));
 Console.WriteLine(animalService.RegistrarCria("724098100000101", rocky));
+
+void MostrarFamilia()
+{
+    // Ho llegim de la BD amb el servei, no de les variables nala, coco...
+    foreach (Animal a in animalService.GetTots())
+    {
+        // Mare pot ser null: a.Mare.Nom sense comprovar-ho peta (NullReferenceException) amb el primer animal sense mare.
+        // També val: string mare = a.Mare?.Nom ?? "sense mare";
+        string mare;
+        if (a.Mare != null)
+        {
+            mare = $"mare {a.Mare.Nom}";
+        }
+        else
+        {
+            mare = "sense mare";
+        }
+        // a.Cries el carrega el lazy loading
+        Console.WriteLine($"{a.AnimalID}. {a.Nom} · {mare} · {a.Cries.Count} cries");
+    }
+}
+// ============ Nivell 2 · RegistrarCria ============
+// La cria es crea aquí amb new i es passa a la funció: és el servei qui la desa, si tot és correcte.
+// Cada cria dolenta només té malament el que es prova: és un gos, ha nascut fa poc i té un xip nou
+Console.WriteLine("\n--- Registrar cries ---");
+animalService.RegistrarCria("724098100000012", new Animal() { Nom = "Pipa", Especie = Especie.GOS, EsFemella = true, Pes = 2.3,
+    DataNaixement = DateTime.Today.AddMonths(-1), Xip = new Xip() { Codi = "724098100000015" } });   // bé: la Coco té una cria nova
+animalService.RegistrarCria("724098100000013", new Animal() { Nom = "Max", Especie = Especie.GOS, EsFemella = false, Pes = 1.5,
+    DataNaixement = DateTime.Today.AddDays(-10), Xip = new Xip() { Codi = "724098100000016" } });    // false: el Rocky és mascle
+animalService.RegistrarCria("724098100000012", new Animal() { Nom = "Misha", Especie = Especie.GAT, EsFemella = true, Pes = 0.8,
+    DataNaixement = DateTime.Today.AddMonths(-1), Xip = new Xip() { Codi = "724098100000017" } });   // false: un gat no pot ser cria de la Coco
+animalService.RegistrarCria("724098100000012", new Animal() { Nom = "Ringo", Especie = Especie.GOS, EsFemella = false, Pes = 2.6,
+    DataNaixement = DateTime.Today.AddMonths(-1), Xip = new Xip() { Codi = "724098100000011" } });   // false: aquest xip és el de la Nala
+// No les demana l'enunciat, però són les altres condicions de la funció
+animalService.RegistrarCria("724098100000012", new Animal() { Nom = "Duc", Especie = Especie.GOS, EsFemella = false, Pes = 20,
+    DataNaixement = DateTime.Today.AddYears(-6), Xip = new Xip() { Codi = "724098100000018" } });    // false: el Duc és més gran que la Coco
+animalService.RegistrarCria("724098100000999", new Animal() { Nom = "Lia", Especie = Especie.GOS, EsFemella = true, Pes = 2,
+    DataNaixement = DateTime.Today.AddMonths(-1), Xip = new Xip() { Codi = "724098100000019" } });   // false: no hi ha cap mare amb aquest xip
+
+// La Coco ha de tenir 3 cries (Rocky, Bimba i Pipa) i cap de les dolentes ha d'haver arribat a la BD
+Console.WriteLine("\n--- Animals després de registrar les cries ---");
+MostrarFamilia();
+
+// ============ Nivell 3 · Descendents ============
+Console.WriteLine("\n--- Descendents ---");
+Console.WriteLine("Descendents de la Nala:");
+foreach (Animal a in animalService.Descendents("724098100000101"))      // Coco, Rocky, Bimba i Pipa
+{
+    Console.WriteLine($"   {a.Nom}");
+}
+
+List<Animal> descendentsRocky = animalService.Descendents("724098100000013");
+if (descendentsRocky.Count == 0)
+{
+    Console.WriteLine("El Rocky no té descendents");                    // un animal sense cries: llista buida
+}
+animalService.CalcularDespesaMes();
+animalService.CalcularDespesaMes();
+coco.EstaAdoptat = true;
+db.Animal.Update(coco);
+db.SaveChanges();

@@ -35,6 +35,9 @@ public class Animal
     [Precision(8, 2)] 
     public decimal QuotaAdopcio { get; set; }
     
+    [Precision(8, 2)] 
+    public decimal DespesaAcumulada { get; set; }
+    
     public virtual Xip Xip { get; set; }
     
     public virtual Adoptant? Adoptant { get; set; }
@@ -47,7 +50,7 @@ public class Animal
 
     public override string ToString()
     {
-        string texto = $"Animal {{AnimalID = {AnimalID}, Nom = {Nom}, Especie = {Especie}, EsFemella = {EsFemella}, DataNaixement = {DataNaixement}, DataEntrada = {DataEntrada}, Pes = {Pes}, EstaAdoptat = {EstaAdoptat}, DataAdopcio = {DataAdopcio}, QuotaAdopcio = {QuotaAdopcio}, Adoptant = {Adoptant}, Voluntaris = {Voluntaris}";
+        string texto = $"Animal {{AnimalID = {AnimalID}, Nom = {Nom}, Especie = {Especie}, EsFemella = {EsFemella}, DataNaixement = {DataNaixement}, DataEntrada = {DataEntrada}, Pes = {Pes}, EstaAdoptat = {EstaAdoptat}, DataAdopcio = {DataAdopcio}, QuotaAdopcio = {QuotaAdopcio}, Adoptant = {Adoptant}, Voluntaris = {Voluntaris}, DespesaAcumulada = {DespesaAcumulada}";
         if (Mare != null)
         {
             string texto1 = $", Mare = {Mare.Nom}";
@@ -84,5 +87,7 @@ public class Animal
         EstaAdoptat = false;
         DataAdopcio = null;
         QuotaAdopcio = 0;
+        DespesaAcumulada = 0;
+        Cries = new HashSet<Animal>();
     }
 }
