@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("YeguasLopezXavi_RefugiAnimals")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9dac257ee1840932384d68f3650717df2643afdf")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dd70d55a2ffd1fadc095faf7fb1bf9dab126a1dd")]
 [assembly: System.Reflection.AssemblyProductAttribute("YeguasLopezXavi_RefugiAnimals")]
 [assembly: System.Reflection.AssemblyTitleAttribute("YeguasLopezXavi_RefugiAnimals")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

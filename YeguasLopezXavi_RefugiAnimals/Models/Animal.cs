@@ -47,6 +47,8 @@ public class Animal
     public virtual Animal Mare { get; set; }
     
     public virtual ICollection<Animal> Cries { get; set; }
+    
+    public virtual ICollection<Visita> Visites { get; set; }
 
     public override string ToString()
     {
@@ -89,5 +91,6 @@ public class Animal
         QuotaAdopcio = 0;
         DespesaAcumulada = 0;
         Cries = new HashSet<Animal>();
+        Visites = new HashSet<Visita>();
     }
 }

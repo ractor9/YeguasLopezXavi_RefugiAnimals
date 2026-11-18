@@ -364,3 +364,7 @@ animalService.CalcularDespesaMes();
 coco.EstaAdoptat = true;
 db.Animal.Update(coco);
 db.SaveChanges();
+
+VisitaService visitaService = new VisitaService(db);
+visitaService.GenerarVisites(30);
+visitaService.EstadistiquesPerEspecie();

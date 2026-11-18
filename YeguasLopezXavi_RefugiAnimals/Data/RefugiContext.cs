@@ -10,6 +10,7 @@ public class RefugiContext:DbContext
     public DbSet<Xip> Xip { get; set; }
     public DbSet<Adoptant> Adoptant { get; set; }
     public DbSet<Voluntari> Voluntari { get; set; }
+    public DbSet<Visita> Visita { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if(!optionsBuilder.IsConfigured) optionsBuilder.UseSqlite("Data Source=refugi.db").UseLazyLoadingProxies();
@@ -59,6 +60,14 @@ public class RefugiContext:DbContext
             .HasForeignKey("MareID")
             .IsRequired(false)
             .OnDelete(DeleteBehavior.Restrict);
-
+        
+        modelBuilder.Entity<Visita>()
+            .HasOne(v => v.Animal)
+            .WithMany(a => a.Visites)
+            .OnDelete(DeleteBehavior.Cascade);
+        
+        modelBuilder.Entity<Visita>()
+            .Property(v => v.Motiu)
+            .HasConversion<string>();
     }
 }

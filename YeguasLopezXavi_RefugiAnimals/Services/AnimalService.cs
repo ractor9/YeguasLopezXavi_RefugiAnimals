@@ -201,7 +201,7 @@ public class AnimalService
 
                 if (a.Cries.Count != 0)
                 {
-                    decimal valor = 1.1m;
+                    decimal valor = 1.0m;
                     foreach (Animal c in a.Cries)
                     {
                         if (!c.EstaAdoptat)
